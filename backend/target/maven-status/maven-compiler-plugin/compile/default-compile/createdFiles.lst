@@ -16,4 +16,5 @@ com/budgetcalendar/repos/BillRepository.class
 com/budgetcalendar/controller/HealthController.class
 com/budgetcalendar/model/PaymentCard.class
 com/budgetcalendar/rowmappers/BillRowMapper.class
+com/budgetcalendar/dto/LoginRequest.class
 com/budgetcalendar/rowmappers/UserRowMapper.class

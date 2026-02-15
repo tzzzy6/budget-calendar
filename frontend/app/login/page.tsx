@@ -35,7 +35,7 @@ export default function Login() {
     return newErrors;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors = validate();
 
@@ -44,9 +44,39 @@ export default function Login() {
       return;
     }
 
-    // TODO: Handle actual login API call
-    console.log("Login form submitted:", formData);
-    alert("Login functionality will be implemented with backend integration");
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (data.errors) {
+          setErrors(data.errors);
+        } else {
+          setErrors({ general: data.message || "Login failed" });
+        }
+        return;
+      }
+
+      // Store user info in localStorage
+      localStorage.setItem("userId", data.userId.toString());
+      localStorage.setItem("userEmail", data.email);
+      
+      // Redirect to dashboard/calendar view
+      window.location.href = "/dashboard";
+    } catch (error) {
+      console.error("Login error:", error);
+      setErrors({ general: "Network error. Please try again." });
+    }
   };
 
   return (
@@ -83,6 +113,11 @@ export default function Login() {
           </div>
 
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+            {errors.general && (
+              <div className="rounded-lg bg-red-50 p-4">
+                <p className="text-sm text-red-600">{errors.general}</p>
+              </div>
+            )}
             <div className="space-y-4 rounded-md">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">

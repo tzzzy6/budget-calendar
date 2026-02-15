@@ -2,6 +2,7 @@ package com.budgetcalendar.controller;
 
 import com.budgetcalendar.dto.AuthResponse;
 import com.budgetcalendar.dto.ErrorResponse;
+import com.budgetcalendar.dto.LoginRequest;
 import com.budgetcalendar.dto.SignupRequest;
 import com.budgetcalendar.model.User;
 import com.budgetcalendar.service.AuthService;
@@ -39,6 +40,28 @@ public class AuthController {
         } catch (Exception e) {
             ErrorResponse error = new ErrorResponse(
                 "An error occurred during signup",
+                HttpStatus.INTERNAL_SERVER_ERROR.value()
+            );
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+        }
+    }
+    
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
+        try {
+            User user = authService.authenticate(request.getEmail(), request.getPassword());
+            AuthResponse response = new AuthResponse(
+                user.getId(),
+                user.getEmail(),
+                "Login successful"
+            );
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            ErrorResponse error = new ErrorResponse(e.getMessage(), HttpStatus.UNAUTHORIZED.value());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+        } catch (Exception e) {
+            ErrorResponse error = new ErrorResponse(
+                "An error occurred during login",
                 HttpStatus.INTERNAL_SERVER_ERROR.value()
             );
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
