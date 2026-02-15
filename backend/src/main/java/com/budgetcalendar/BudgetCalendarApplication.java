@@ -19,9 +19,10 @@ public class BudgetCalendarApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOriginPatterns("*")
-                        .allowedMethods("*")
+                        .allowedOrigins("http://localhost:3000")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
+                        .exposedHeaders("*")
                         .allowCredentials(false)
                         .maxAge(3600);
             }

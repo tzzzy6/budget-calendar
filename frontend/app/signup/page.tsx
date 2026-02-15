@@ -78,12 +78,12 @@ export default function SignUp() {
 
       alert("Signup successful! Please log in.");
       
-      // Store token and redirect to dashboard
+      // Store token and redirect to onboarding
       localStorage.setItem("userId", data.userId.toString());
       localStorage.setItem("userEmail", data.email);
       localStorage.setItem("token", data.token);
       
-      window.location.href = "/dashboard";
+      window.location.href = "/onboarding";
     } catch (error) {
       console.error("Signup error:", error);
       setErrors({ general: "Network error. Please try again." });

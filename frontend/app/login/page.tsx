@@ -72,8 +72,13 @@ export default function Login() {
       localStorage.setItem("userEmail", data.email);
       localStorage.setItem("token", data.token);
       
-      // Redirect to dashboard/calendar view
-      window.location.href = "/dashboard";
+      // Check if onboarding is complete
+      const onboardingComplete = localStorage.getItem("onboardingComplete");
+      if (onboardingComplete === "true") {
+        window.location.href = "/dashboard";
+      } else {
+        window.location.href = "/onboarding";
+      }
     } catch (error) {
       console.error("Login error:", error);
       setErrors({ general: "Network error. Please try again." });

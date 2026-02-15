@@ -7,10 +7,15 @@ com/budgetcalendar/util/JwtUtil.class
 com/budgetcalendar/model/PaymentCard.class
 com/budgetcalendar/dto/LoginRequest.class
 com/budgetcalendar/rowmappers/UserRowMapper.class
+com/budgetcalendar/dto/BillRequest.class
+com/budgetcalendar/dto/BillResponse.class
+com/budgetcalendar/controller/BillController.class
+com/budgetcalendar/dto/PaydayRequest.class
 com/budgetcalendar/rowmappers/PaydayRowMapper.class
 com/budgetcalendar/rowmappers/PaymentCardRowMapper.class
 com/budgetcalendar/dto/SignupRequest.class
 com/budgetcalendar/model/Bill.class
+com/budgetcalendar/controller/PaydayController.class
 com/budgetcalendar/repos/UserRepository.class
 com/budgetcalendar/repos/PaydayRepository.class
 com/budgetcalendar/filter/JwtAuthenticationFilter.class
@@ -21,3 +26,6 @@ com/budgetcalendar/repos/BillRepository.class
 com/budgetcalendar/controller/HealthController.class
 com/budgetcalendar/rowmappers/BillRowMapper.class
 com/budgetcalendar/config/FilterConfig.class
+com/budgetcalendar/service/BillService.class
+com/budgetcalendar/service/PaydayService.class
+com/budgetcalendar/dto/PaydayResponse.class

@@ -29,10 +29,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         
+        // Allow CORS preflight requests without authentication
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
+        
         String authHeader = request.getHeader("Authorization");
         
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
             response.getWriter().write("{\"message\":\"Missing or invalid Authorization header\",\"status\":401}");
             return;
         }
@@ -43,6 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             
             if (jwtUtil.isTokenExpired(token)) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setContentType("application/json");
                 response.getWriter().write("{\"message\":\"Token has expired\",\"status\":401}");
                 return;
             }
@@ -55,6 +63,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
             response.getWriter().write("{\"message\":\"Invalid token\",\"status\":401}");
         }
     }
