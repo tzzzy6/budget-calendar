@@ -3,13 +3,15 @@ package com.budgetcalendar.dto;
 public class AuthResponse {
     private Long userId;
     private String email;
+    private String token;
     private String message;
     
     public AuthResponse() {}
     
-    public AuthResponse(Long userId, String email, String message) {
+    public AuthResponse(Long userId, String email, String token, String message) {
         this.userId = userId;
         this.email = email;
+        this.token = token;
         this.message = message;
     }
     
@@ -27,6 +29,14 @@ public class AuthResponse {
     
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public String getToken() {
+        return token;
+    }
+    
+    public void setToken(String token) {
+        this.token = token;
     }
     
     public String getMessage() {

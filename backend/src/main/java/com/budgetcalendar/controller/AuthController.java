@@ -6,6 +6,7 @@ import com.budgetcalendar.dto.LoginRequest;
 import com.budgetcalendar.dto.SignupRequest;
 import com.budgetcalendar.model.User;
 import com.budgetcalendar.service.AuthService;
+import com.budgetcalendar.util.JwtUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,13 +25,18 @@ public class AuthController {
     @Autowired
     private AuthService authService;
     
+    @Autowired
+    private JwtUtil jwtUtil;
+    
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Valid @RequestBody SignupRequest request) {
         try {
             User user = authService.signup(request);
+            String token = jwtUtil.generateToken(user.getId(), user.getEmail());
             AuthResponse response = new AuthResponse(
                 user.getId(),
                 user.getEmail(),
+                token,
                 "User registered successfully"
             );
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -50,9 +56,11 @@ public class AuthController {
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
         try {
             User user = authService.authenticate(request.getEmail(), request.getPassword());
+            String token = jwtUtil.generateToken(user.getId(), user.getEmail());
             AuthResponse response = new AuthResponse(
                 user.getId(),
                 user.getEmail(),
+                token,
                 "Login successful"
             );
             return ResponseEntity.ok(response);

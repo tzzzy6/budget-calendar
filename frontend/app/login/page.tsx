@@ -70,6 +70,7 @@ export default function Login() {
       // Store user info in localStorage
       localStorage.setItem("userId", data.userId.toString());
       localStorage.setItem("userEmail", data.email);
+      localStorage.setItem("token", data.token);
       
       // Redirect to dashboard/calendar view
       window.location.href = "/dashboard";
