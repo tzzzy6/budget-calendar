@@ -1,3 +1,6 @@
+/home/tzzzy/Development/budget-calendar/backend/src/main/java/com/budgetcalendar/service/AuthService.java
+/home/tzzzy/Development/budget-calendar/backend/src/main/java/com/budgetcalendar/dto/ErrorResponse.java
+/home/tzzzy/Development/budget-calendar/backend/src/main/java/com/budgetcalendar/controller/AuthController.java
 /home/tzzzy/Development/budget-calendar/backend/src/main/java/com/budgetcalendar/rowmappers/PaymentCardRowMapper.java
 /home/tzzzy/Development/budget-calendar/backend/src/main/java/com/budgetcalendar/model/User.java
 /home/tzzzy/Development/budget-calendar/backend/src/main/java/com/budgetcalendar/model/Payday.java
@@ -8,6 +11,8 @@
 /home/tzzzy/Development/budget-calendar/backend/src/main/java/com/budgetcalendar/repos/UserRepository.java
 /home/tzzzy/Development/budget-calendar/backend/src/main/java/com/budgetcalendar/rowmappers/BillRowMapper.java
 /home/tzzzy/Development/budget-calendar/backend/src/main/java/com/budgetcalendar/repos/BillRepository.java
+/home/tzzzy/Development/budget-calendar/backend/src/main/java/com/budgetcalendar/dto/SignupRequest.java
+/home/tzzzy/Development/budget-calendar/backend/src/main/java/com/budgetcalendar/dto/AuthResponse.java
 /home/tzzzy/Development/budget-calendar/backend/src/main/java/com/budgetcalendar/repos/PaydayRepository.java
 /home/tzzzy/Development/budget-calendar/backend/src/main/java/com/budgetcalendar/controller/HealthController.java
 /home/tzzzy/Development/budget-calendar/backend/src/main/java/com/budgetcalendar/model/Bill.java

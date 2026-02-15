@@ -44,7 +44,7 @@ export default function SignUp() {
     return newErrors;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors = validate();
 
@@ -53,9 +53,35 @@ export default function SignUp() {
       return;
     }
 
-    // TODO: Handle actual signup API call
-    console.log("Signup form submitted:", formData);
-    alert("Signup functionality will be implemented with backend integration");
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (data.errors) {
+          setErrors(data.errors);
+        } else {
+          setErrors({ general: data.message || "Signup failed" });
+        }
+        return;
+      }
+
+      alert("Signup successful! Please log in.");
+      window.location.href = "/login";
+    } catch (error) {
+      console.error("Signup error:", error);
+      setErrors({ general: "Network error. Please try again." });
+    }
   };
 
   return (
@@ -92,6 +118,11 @@ export default function SignUp() {
           </div>
 
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+            {errors.general && (
+              <div className="rounded-lg bg-red-50 p-4">
+                <p className="text-sm text-red-600">{errors.general}</p>
+              </div>
+            )}
             <div className="space-y-4 rounded-md">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
